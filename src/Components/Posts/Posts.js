@@ -6,6 +6,7 @@ import CardContent from "@material-ui/core/CardContent";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
+import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles({
   root: {
@@ -17,28 +18,30 @@ const useStyles = makeStyles({
     transform: "scale(0.8)",
   },
   title: {
-    fontSize: 14,
+    fontSize: 20,
+    fontWeight:'bold'
   },
   pos: {
     marginBottom: 12,
   },
 });
 
-const Posts = ({ post }) => {
+const Posts = ({ post, showButton }) => {
   const classes = useStyles();
   console.log(post);
-  const {title, body } = post;
-  // console.log(title);
+  const {id,title, body } = post;
+  console.log(id);
   return (
    
-    <Container maxWidth="sm">
-      <div>
+    <Container maxWidth="sm"> 
+      
         <Card className={classes.root}>
           <CardContent>
             <Typography
               className={classes.title}
               color="textSecondary"
-              gutterBottom
+              gutterBottom 
+              
             >
               {title}
             </Typography>
@@ -48,10 +51,16 @@ const Posts = ({ post }) => {
             </Typography>
           </CardContent>
           <CardActions>
-            <Button size="small">Learn More</Button>
+         {
+             showButton !== false && 
+           <Link to={{pathname:'/post/'+id}}>
+           <Button size="small">Learn More</Button></Link>
+         }
+         
           </CardActions>
+          
         </Card>
-      </div>
+      
     </Container>
   );
 };
